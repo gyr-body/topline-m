@@ -9,6 +9,7 @@ import {
   CellGroup
 } from 'vant'
 import './utils/register-vant.js' // 加载执行注册模块
+import 'amfe-flexible' // 配置rem 适配
 Vue
   .use(Button)
   .use(Cell)

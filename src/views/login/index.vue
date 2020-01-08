@@ -6,14 +6,21 @@
       <!-- <i slot="left-icon"></i> -->
       <van-field v-model="user.mobile" placeholder="请输入手机号">
         <template slot="left-icon">
-          <i class="iconfont icon-shouji"></i>
+          <i class="iconfont icon-shouji" style="font-size:22px"></i>
         </template>
       </van-field>
       <van-field v-model="user.code" placeholder="请输入验证码">
         <template slot="left-icon">
-          <i class="iconfont icon-iconfontmima1"></i>
+          <i class="iconfont icon-iconfontmima1" style="font-size:22px"></i>
         </template>
-        <van-button slot="button" size="small" type="primary">获取验证码</van-button>
+        <van-count-down
+          v-if="isCountDownShow"
+          slot="button"
+          :time="1000*60"
+          format=" ss s"
+          @finish="isCountDownShow=false"
+        />
+        <van-button v-else slot="button" size="small" type="primary" @click="onSendSmsCode">获取验证码</van-button>
       </van-field>
       <!-- {{user.mobile}}
       {{user.code}}-->
@@ -31,7 +38,7 @@
 </template>
 
 <script>
-import { login } from '@/api/user'
+import { login, getSmsCode } from '@/api/user'
 export default {
   name: 'LoginPage',
   components: {},
@@ -41,13 +48,15 @@ export default {
       user: {
         mobile: '',
         code: ''
-      }
+      },
+      isCountDownShow: false // 是否显示倒计时
     }
   },
   computed: {},
   watch: {},
   created () {},
   methods: {
+    // 登录
     async onLogin () {
       // 1、 获取表单数据
       const user = this.user
@@ -67,6 +76,21 @@ export default {
         console.log('登录失败', err)
         this.$toast.success('登录失败')
       }
+    },
+    // 获取验证码
+    async onSendSmsCode () {
+      try {
+        const { mobile } = this.user
+        // 1、验证手机号是否有效
+        // 2、请求发送短信验证码
+        const res = await getSmsCode(mobile)
+        console.log(res)
+        // 3、显示倒计时
+        this.isCountDownShow = true
+      } catch (err) {
+        console.log(err)
+        this.$toast('请勿频繁操作')
+      }
     }
   }
 }
@@ -78,13 +102,14 @@ export default {
 // }
 .login {
   .van-button--primary {
-    background-color: #ededed;
+    // background-color: #ededed;
     border: 0;
     color: black;
     border-radius: 10px;
+    font-size: 14px;
   }
   .van-cell {
-    align-items: center
+    align-items: center;
   }
   .btn {
     padding: 27px 16px;

@@ -3,8 +3,11 @@
 // 所有 Vant 组件的注册就都写到上面的模块中
 import Vue from 'vue'
 
-import { Button, Cell, CellGroup } from 'vant'
+import { Button, Cell, CellGroup, Icon, NavBar, Field } from 'vant'
 
 Vue.use(Button)
   .use(Cell)
   .use(CellGroup)
+  .use(Icon)
+  .use(NavBar)
+  .use(Field)

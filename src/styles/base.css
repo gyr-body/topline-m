@@ -1,0 +1,9 @@
+body {
+  background-color: #F5F7F9;
+}
+body .van-nav-bar {
+  background-color: #3195F9;
+}
+body .van-nav-bar .van-nav-bar__title {
+  color: white;
+}

@@ -8,7 +8,13 @@ import {
   Cell,
   CellGroup
 } from 'vant'
-import './utils/register-vant.js' // 加载执行注册模块
+
+// 加载注册vant组件模块
+import './utils/register-vant.js'
+
+// 加载全局样式
+// 一定要把自己的样式引入到第三方组件样式下面
+import './styles/index.less'
 import 'amfe-flexible' // 配置rem 适配
 Vue
   .use(Button)

@@ -3,7 +3,14 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = []
+// 配置路由表
+const routes = [
+  { // 登录
+    name: 'login',
+    path: '/login',
+    component: () => import('@/views/login') // 路由懒加载
+  }
+]
 
 const router = new VueRouter({
   routes

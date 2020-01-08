@@ -3,11 +3,23 @@
     <!-- <div class="title">登录</div> -->
     <van-nav-bar title="注册/登录" />
     <van-cell-group>
-      <van-field class="iconfont icon-shouji"  placeholder="请输入手机号" />
-      <van-field class="iconfont icon-iconfontmima1" placeholder="请输入验证码" />
+      <!-- <i slot="left-icon"></i> -->
+      <van-field v-model="user.mobile" placeholder="请输入手机号">
+        <template slot="left-icon">
+          <i class="iconfont icon-shouji"></i>
+        </template>
+      </van-field>
+      <van-field v-model="user.code" placeholder="请输入验证码">
+        <template slot="left-icon">
+          <i class="iconfont icon-iconfontmima1"></i>
+        </template>
+        <van-button slot="button" size="small" type="primary">获取验证码</van-button>
+      </van-field>
+      <!-- {{user.mobile}}
+      {{user.code}}-->
     </van-cell-group>
     <div class="btn">
-      <van-button type="info">登录</van-button>
+      <van-button type="info" @click="onLogin">登录</van-button>
     </div>
     <div class="van-divider">
       <span>账号：13911111111 密码：246810</span>
@@ -19,18 +31,44 @@
 </template>
 
 <script>
+import { login } from '@/api/user'
 export default {
   name: 'LoginPage',
   components: {},
   props: {},
   data () {
     return {
+      user: {
+        mobile: '',
+        code: ''
+      }
     }
   },
   computed: {},
   watch: {},
   created () {},
-  methods: {}
+  methods: {
+    async onLogin () {
+      // 1、 获取表单数据
+      const user = this.user
+      // 2、表单验证
+      // 3、登录中提示  在组件中写法如下：
+      this.$toast.loading({
+        duration: 0, // 持续展示 toast
+        message: '登录中...',
+        forbidClick: true // 是否禁止背景点击
+      })
+      // 4、请求登录数据
+      try {
+        const res = await login(user)
+        this.$toast.success('登录成功')
+        console.log('登录成功', res)
+      } catch (err) {
+        console.log('登录失败', err)
+        this.$toast.success('登录失败')
+      }
+    }
+  }
 }
 </script>
 
@@ -38,16 +76,27 @@ export default {
 // .iconfont{
 //   // font-size: 20px
 // }
-.btn{
-  padding:27px 16px;
-  .van-button{
-    width: 100%
+.login {
+  .van-button--primary {
+    background-color: #ededed;
+    border: 0;
+    color: black;
+    border-radius: 10px;
   }
-}
-.van-divider{
-  font-size: 14px;
-  margin: 10px 0;
-  text-align: center;
-  color: #969799
+  .van-cell {
+    align-items: center
+  }
+  .btn {
+    padding: 27px 16px;
+    .van-button {
+      width: 100%;
+    }
+  }
+  .van-divider {
+    font-size: 14px;
+    margin: 10px 0;
+    text-align: center;
+    color: #969799;
+  }
 }
 </style>

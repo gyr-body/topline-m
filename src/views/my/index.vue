@@ -3,7 +3,7 @@
     <!-- 已登录：用户信息 -->
     <div class="user-info-wrap" v-if="$store.state.user">
       <div class="base-info-wrap">
-        <div class="avatar-title-wrap" @click="$router.push('/user')">
+        <div class="avatar-title-wrap" @click="$router.push('/user/' + user.id)">
           <van-image class="avatar" round fit="cover" :src="user.photo" />
           <div class="title">{{user.name}}</div>
         </div>
@@ -31,9 +31,9 @@
     <!-- 已登录：用户信息 -->
 
     <!-- 未登录 -->
-    <div class="not-login" v-else>
+    <div class="not-login" v-else @click="$router.push('/login')">
       <div class="mobile"></div>
-      <div class="text" @click="$router.push('/login')">点击登录</div>
+      <div class="text">点击登录</div>
     </div>
     <!-- /未登录 -->
     <!-- 其它 -->

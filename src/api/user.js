@@ -29,3 +29,20 @@ export const getUserinfo = () => {
     url: '/app/v1_0/user'
   })
 }
+// 获取指定用户信息
+export const getUserById = userId => {
+  return request({
+    method: 'GET',
+    url: `/app/v1_0/users/${userId}`
+  })
+}
+/**
+ * 获取指定用户的文章列表
+ */
+export const getArticlesByUser = (userId, params) => {
+  return request({
+    method: 'GET',
+    url: `/app/v1_0/users/${userId}/articles`,
+    params
+  })
+}

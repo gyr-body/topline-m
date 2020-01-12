@@ -7,3 +7,6 @@ body .van-nav-bar {
 body .van-nav-bar .van-nav-bar__title {
   color: white;
 }
+body .van-nav-bar .van-icon {
+  color: white;
+}

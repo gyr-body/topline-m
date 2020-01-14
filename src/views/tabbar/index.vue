@@ -2,7 +2,7 @@
   <div class="tabbar-container">
     <router-view />
     <!-- 标签栏 -->
-    <van-tabbar v-model="active">
+    <van-tabbar v-model="active" fixed>
       <van-tabbar-item name="home" icon="home-o" to="/">首页</van-tabbar-item>
       <van-tabbar-item name="search" icon="search" to="/qa">问答</van-tabbar-item>
       <van-tabbar-item name="friends" icon="friends-o" to="/video">视频</van-tabbar-item>

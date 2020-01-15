@@ -75,7 +75,7 @@ export default {
       } else {
         this.finished = true
       }
-      console.log(data)
+      // console.log(data)
     }
   }
 }
